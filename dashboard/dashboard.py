@@ -1,7 +1,12 @@
 import pandas as pd
 import streamlit as st
-from config import path_final_csv, user_name
 from tabs import time, score, watched, summarize
+import sys
+import os
+
+# Add the parent directory (root) to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from config import path_final_csv, user_name
 
 df = pd.read_csv(path_final_csv)
 
