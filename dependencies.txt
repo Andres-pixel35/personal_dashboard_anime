@@ -1,0 +1,4 @@
+completely optional, only used to the greetings logic. If you have that feature disable, you don't need these packages
+
+figlet
+lolcat

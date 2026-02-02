@@ -1,0 +1,7 @@
+pandas
+streamlit>=1.35.0
+rapidfuzz
+questionary
+prompt_toolkit
+requests
+altair<5
