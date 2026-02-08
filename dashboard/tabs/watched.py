@@ -15,10 +15,6 @@ def render_watched(df):
     shortest = filter_episodes.iloc[0:5]
     longest = filter_episodes.iloc[:-6:-1]
 
-    # get genres and tags
-    local_df["genres"] = local_df["genres"].str.split(";")
-    local_df["tags"] = local_df["tags"].str.split(";")
-
     genres = local_df.explode("genres")["genres"].value_counts().sort_values(ascending=False)
     tags = local_df.explode("tags")["tags"].value_counts().sort_values(ascending=False)
 

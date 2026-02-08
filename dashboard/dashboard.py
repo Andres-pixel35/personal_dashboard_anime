@@ -11,23 +11,37 @@ from config import path_final_csv, user_name
 df = pd.read_csv(path_final_csv)
 
 df["start_date"] = pd.to_datetime(df["start_date"])
+df["genres"] = df["genres"].str.split(";")
+df["tags"] = df["tags"].str.split(";")
 
 st.set_page_config(layout="wide")
 
 with st.sidebar:
     st.header("Filters")
-    choice_year = st.multiselect("Filter year", sorted(df["start_date"].dt.year.unique()))
-    type_choice = st.multiselect("Filter type:", df["type"].unique())
+
+    choice_year = st.multiselect("Filter year:", sorted(df["start_date"].dt.year.unique()))
+    choice_type = st.multiselect("Filter type:", df["type"].unique())
+    choice_genre = st.multiselect("Filter genre", sorted(df.explode("genres")["genres"].unique()))
+    choice_tag = st.multiselect("Filter tag", sorted(df.explode("tags")["tags"].unique()))
 
     st.info("You may choose more than one option")
 
 # apply filters, provided they were chose 
-if type_choice and choice_year:
-    df = df[(df['type'].isin(type_choice)) & (df["start_date"].dt.year.isin(choice_year))]
-elif type_choice:
-    df = df[df["type"].isin(type_choice)]
-elif choice_year:
+if choice_type:
+    df = df[df["type"].isin(choice_type)]
+
+# 3. Apply Year Filter
+if choice_year:
     df = df[df["start_date"].dt.year.isin(choice_year)]
+
+# 4. Apply Genre Filter (Handles lists within cells)
+if choice_genre:
+    df = df[df["genres"].apply(lambda x: any(g in x for g in choice_genre))]
+
+# 5. Apply Tag Filter (Handles lists within cells)
+if choice_tag:
+    df = df[df["tags"].apply(lambda x: any(t in x for t in choice_tag))]
+
 
 if df.empty:
     st.warning("No data found for the selected year(s) or/and type(s). Try picking a different filter!")

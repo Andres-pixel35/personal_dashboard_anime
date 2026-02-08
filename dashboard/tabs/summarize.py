@@ -47,10 +47,6 @@ def render_summarize(df):
 
     st.markdown("<h1 style='text-align: center;'>Being your favourites...</h1>", unsafe_allow_html=True)
 
-    # get favourite genre and tag
-    local_df["genres"] = local_df["genres"].str.split(";")
-    local_df["tags"] = local_df["tags"].str.split(";")
-
     genres = local_df.explode("genres")["genres"].value_counts().sort_values(ascending=False)
     tags = local_df.explode("tags")["tags"].value_counts().sort_values(ascending=False)
 
