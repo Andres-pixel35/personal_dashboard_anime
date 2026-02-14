@@ -10,25 +10,33 @@ def render_time(df):
     local_df["start_date"] = pd.to_datetime(local_df["start_date"])
     years = local_df["start_date"].dt.year.value_counts().sort_index()
 
-    # get older anime
+    # get older anime and newest
     local_df["start_date"] = local_df["start_date"].dt.date
     old = local_df.loc[:, ["title", "english_title", "start_date"]]    
     old = old.sort_values(by="start_date")
     oldest = old.iloc[0:5]
     newest = old.iloc[:-6:-1]
 
+    # change columns name
+    columns = {
+        "title": "Title",
+        "english_title": "English Title",
+        "start_date": "Start Date"
+    }
+
     col1, col2 = st.columns(2)
 
     with col1:
         st.markdown("### Newest Anime")
-        st.dataframe(newest, hide_index=True, width="stretch")
+        st.dataframe(newest, hide_index=True, width="stretch", column_config=columns)
 
     with col2:
         st.markdown("### Oldest Anime")
-        st.dataframe(oldest, hide_index=True, width="stretch")
+        st.dataframe(oldest, hide_index=True, width="stretch", column_config=columns)
     
     st.markdown("#### Release Year Distribution")
     st.bar_chart(years, y_label="Frequency", x_label="Year")
+
 
 
 
