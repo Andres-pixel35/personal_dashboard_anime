@@ -77,7 +77,7 @@ def fill_season(df):
     # Extract months for the whole column at once
     month = df["start_date"].dt.month
 
-    # Create masks for your conditions
+    # Create masks for the conditions
     winter = (month < 4)
     spring = (month >= 4) & (month < 7)
     summer = (month >= 7) & (month < 10)
