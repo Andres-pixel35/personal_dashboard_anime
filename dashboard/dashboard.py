@@ -60,7 +60,7 @@ else:
     st.title(f"{user_name}'s Anime Dashboard")
 
     #  tabs names
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Summarize", "Watched", "Time", "Score", "Database"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["Summarize", "Watched", "Time", "Score", "Dataset"])
 
     # Content for Tab 1
     with tab1:
