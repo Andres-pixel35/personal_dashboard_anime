@@ -2,6 +2,7 @@ from datetime import datetime
 import pandas as pd
 from config import valid_type
 from api import anilist
+import numpy as np
 
 SEASONS = ["winter", "spring", "summer", "fall"]
 
@@ -110,22 +111,35 @@ def show_unmatched(titles: list):
         print("All your Anime were successfully matched")
 
 # Takes a df and a column and return the index of the rows
-def index_null_values(df, columns: list) -> list:
+def index_null_values(df, columns: list):
     index_list = []
 
     for column in columns:
 
         mask = df[column].isnull() 
+
         index = df[mask].index
+
         index_list.append(index)
 
-    return index_list
+    return index_list 
 
 def fill_na_values(df, index: list, columns: list, values: list):
-    size = len(index)
-
-    for i in range(size):
-        df.loc[index[i], columns[i]] = values[i]
-
+    for i in range(len(columns)):
+        col = columns[i]
+        idx = index[i]
+        val = values[i]
+        
+        # Check if we are dealing with the score column
+        if col == 'score':
+            size = len(idx)
+            if size > 0:
+                # We assume 'val' is the distribution of existing scores
+                samples = np.random.choice(val, size=size)
+                df.loc[idx, col] = samples
+        else:
+            # For other columns, 'val' is a static value (1, "OTHER", etc.)
+            df.loc[idx, col] = val
+            
     return df
 

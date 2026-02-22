@@ -62,7 +62,7 @@ check_status()
     status="$1"
     if [ "$status" -ne 0 ]; then
         echo "Shutting down..."
-        deactivate # if usin conda, change this to conda deactivate
+        conda deactivate # if usin conda, change this to conda deactivate
         exit 1
     fi
 }
