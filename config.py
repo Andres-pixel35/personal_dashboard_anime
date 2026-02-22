@@ -17,6 +17,7 @@ path_user_csv = "./data/user/" + user_csv
 path_original_airing = "./data/original/airing_anime.csv"
 path_modified_airing = "./data/modified/airing_anime_M.csv"
 path_historical_csv = "./data/modified/anime.csv"
+path_original_historical = "./data/original/anilist_seasonal_20251119.csv"
 path_final_csv = "./data/final/" + final_csv
 
 # -- Disable/Enable some features
