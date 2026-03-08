@@ -63,6 +63,6 @@ def render_summarize(df):
         custom_metric("Tag", tags.index[0], f"{tags.iloc[0]} Apparitions")
     
     with col3:
-        custom_metric("Year", years.index[0], f"{years.iloc[0]} Animes Watched")
+        custom_metric("Year", years.index[0], f"{years.iloc[0]} Anime Watched")
 
 

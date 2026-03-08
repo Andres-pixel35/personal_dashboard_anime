@@ -1,7 +1,6 @@
 import pandas as pd
 from setup_final import helpers
 from config import path_historical_csv
-import numpy as np
 
 df = pd.read_csv(path_historical_csv)
 
